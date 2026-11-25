@@ -5,7 +5,7 @@
 @section('content')
     <div class="landing__container">
         <div class="landing__overlay">
-            <img src="/images/landing-page-background.jpg" alt="Bikers Road Logo" class="landing__logo">
+            <img src="/images/landing-page-background.webp" alt="Bikers Road Logo" class="landing__logo">
             <article class="landing__text">
                 <h1>{{ __('tid_landing_title') }}</h1>
                 <p>{{ __('tid_landing_description') }}</p>

@@ -1,4 +1,8 @@
-<x-guest-layout>
+@extends('layouts.app')
+
+@section('title', 'Register')
+
+@section('content')
     <div class="register-container">
         <div class="register-header">
             <h1>{{ __('Register') }}</h1>
@@ -57,4 +61,4 @@
             </div>
         </form>
     </div>
-</x-guest-layout>
+@endsection
