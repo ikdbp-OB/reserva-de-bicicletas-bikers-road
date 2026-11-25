@@ -4,13 +4,13 @@ const menuIcon = document.getElementById('menu__icon');
 const closeMenuIcon = document.getElementById('close__menu__icon');
 const mobileNav = document.getElementById('mobile__nav');
 
-closeMenuIcon.style.display = 'none';
-menuIcon.style.display = 'none';
+menuButton.style.display = 'none';
 
 function toggleMenu() {
     let isMenuOpen = false;
     menuIcon.style.display = 'block';
     closeMenuIcon.style.display = 'none';
+    menuButton.style.display = 'block';
 
     menuButton.addEventListener('click', () => {
         if (!isMenuOpen) {
@@ -39,8 +39,7 @@ addEventListener('resize', () => {
     if (window.innerWidth <= 768) {
         toggleMenu();
     } else {
-        menuIcon.style.display = 'none';
-        closeMenuIcon.style.display = 'none';
+        menuButton.style.display = 'none';
         mobileNav.style.transform = 'translateY(-100%)';
         iconsContainer.style.zIndex = '100';
         document.body.style.overflow = 'auto';
