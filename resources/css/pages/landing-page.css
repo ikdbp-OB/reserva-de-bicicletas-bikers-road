@@ -1,3 +1,11 @@
+:root{
+    --text-color: white;
+    --primary-button-background: white;
+    --on-primary-button: black;
+    --secondary-button-background: #5e5e5e;
+    --on-secondary-button: white;
+}
+
 .landing__container{
     position: absolute;
     top: 0;
@@ -22,7 +30,7 @@
     position: absolute;
     bottom: 10%;
     left: 10%;
-    color: white;
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -39,10 +47,10 @@
 }
 
 .landing__primary__btn {
-    background-color: white;
+    background-color: var(--primary-button-background);
     text-decoration: none;
     font-size: 1rem;
-    color: black;
+    color: var(--on-primary-button);
     border: none;
     width: fit-content;
     padding: 10px 20px;
@@ -51,10 +59,10 @@
 }
 
 .landing__secondary__btn {
-    background-color: #5e5e5e;
+    background-color: var(--secondary-button-background);
     text-decoration: none;
     font-size: 1rem;
-    color: white;
+    color: var(--on-secondary-button);
     border: none;
     width: fit-content;
     padding: 10px 20px;
