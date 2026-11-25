@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="booking-create">
-        <h1 class="booking-create__title">Reservar</h1>
+        <h1 class="booking-create__title">{{ __('pid_book') }}</h1>
 
         @if ($errors->any())
             <div class="booking-create__errors">
@@ -22,12 +22,12 @@
 
             <div class="booking-create__left">
                 <div class="booking-create__section">
-                    <h2>Precio</h2>
-                    <p>{{ number_format($bike->price_per_hour, 2, '.', '') }}€/Hora</p>
+                    <h2>{{ __('pid_price') }}</h2>
+                    <p>{{ number_format($bike->price_per_hour, 2, '.', '') }}€/h</p>
                 </div>
 
                 <fieldset class="booking-create__section">
-                    <legend>Metodo de pago</legend>
+                    <legend>{{ __('pid_payment_method') }}</legend>
                     <div class="booking-create__payments">
                         <label class="booking-create__payment">
                             <input type="radio" name="payment_method" value="paypal" checked>
@@ -39,27 +39,41 @@
                         </label>
                         <label class="booking-create__payment">
                             <input type="radio" name="payment_method" value="card">
-                            <span>Tarjeta</span>
+                            <span>{{ __('pid_card') }}</span>
                         </label>
                     </div>
                 </fieldset>
 
-                <div class="booking-create__section">
-                    <label class="booking-create__label" for="booking_date">Día</label>
-                    <input
-                        class="booking-create__date"
-                        type="date"
-                        id="booking_date"
-                        value="{{ old('booking_date', now()->format('Y-m-d')) }}"
-                        required
-                    >
+                <div class="booking-create__section date__inputs">
+                    <div>
+                        <label class="booking-create__label" for="booking_start_date">{{ __('pid_booking_start_date') }}</label>
+                        <input
+                            class="booking-create__date"
+                            type="date"
+                            id="booking_date"
+                            value="{{ old('booking_date', now()->format('Y-m-d')) }}"
+                            required
+                        >
+                    </div>
+                    
+                    <div>
+                        <label class="booking-create__label" for="booking_end_date">{{ __('pid_booking_end_date') }}</label>
+                        <input
+                            class="booking-create__date"
+                            type="date"
+                            id="booking_end_date"
+                            value="{{ old('booking_end_date', now()->format('Y-m-d')) }}"
+                            required
+                        >
+                    </div>
+                    
                 </div>
 
                 <div class="booking-create__section">
-                    <h2>Hora</h2>
+                    <h2>{{ __('pid_booking_time') }}</h2>
                     <div class="booking-create__time-range">
                         <div class="booking-create__time">
-                            <span>Hora inicio</span>
+                            <span>{{ __('pid_booking_start_time') }}</span>
                             <div class="booking-create__time-inputs">
                                 <input type="number" id="start_hour" min="0" max="23" aria-label="Hora de inicio">
                                 <span>-</span>
@@ -67,7 +81,7 @@
                             </div>
                         </div>
                         <div class="booking-create__time">
-                            <span>Hora fin</span>
+                            <span>{{ __('pid_booking_end_time') }}</span>
                             <div class="booking-create__time-inputs">
                                 <input type="number" id="end_hour" min="0" max="23" aria-label="Hora de finalización">
                                 <span>-</span>
@@ -80,9 +94,9 @@
 
             <div class="booking-create__right">
                 <fieldset class="booking-create__card">
-                    <legend>Tarjeta de credito</legend>
+                    <legend>{{ __('pid_credit_card') }}</legend>
 
-                    <label for="card_number">Numero de tarjeta</label>
+                    <label for="card_number">{{ __('pid_card_number') }}</label>
                     <input
                         type="text"
                         id="card_number"
@@ -91,7 +105,7 @@
                         placeholder="1234 5678 9012 3456"
                     >
 
-                    <label for="cardholder">Titular de la tarjeta</label>
+                    <label for="cardholder">{{ __('pid_card_holder') }}</label>
                     <input
                         type="text"
                         id="cardholder"
@@ -101,42 +115,22 @@
 
                     <div class="booking-create__card-row">
                         <div>
-                            <label for="expiry">Fecha de caducidad</label>
+                            <label for="expiry">{{ __('pid_card_expiration') }}</label>
                             <input type="text" id="expiry" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY">
                         </div>
                         <div>
-                            <label for="cvc">Codigo CVV</label>
+                            <label for="cvc">{{ __('pid_card_cvc') }}</label>
                             <input type="text" id="cvc" inputmode="numeric" autocomplete="cc-csc" placeholder="123">
                         </div>
                     </div>
                 </fieldset>
 
-                <button type="submit" class="booking-create__submit">Confirmar</button>
+                <button type="submit" class="booking-create__submit">{{ __('pid_confirm_booking') }}</button>
             </div>
         </form>
     </section>
 
     <script>
-        const bookingForm = document.getElementById('booking-form');
-        const bookingDate = document.getElementById('booking_date');
-
-        function pad(value) {
-            return String(value).padStart(2, '0');
-        }
-
-        function updateBookingTimes() {
-            const date = bookingDate.value;
-            const startHour = pad(document.getElementById('start_hour').value);
-            const startMinute = pad(document.getElementById('start_minute').value);
-            const endHour = pad(document.getElementById('end_hour').value);
-            const endMinute = pad(document.getElementById('end_minute').value);
-
-            document.getElementById('start_time').value = `${date}T${startHour}:${startMinute}`;
-            document.getElementById('end_time').value = `${date}T${endHour}:${endMinute}`;
-        }
-
-        bookingForm.addEventListener('submit', updateBookingTimes);
-        bookingForm.addEventListener('input', updateBookingTimes);
-        updateBookingTimes();
+        
     </script>
 @endsection
