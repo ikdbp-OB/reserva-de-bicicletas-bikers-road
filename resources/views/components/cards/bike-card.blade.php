@@ -11,6 +11,6 @@
             <p class="bikes__card__colour__text">{{ $bike->colour }}</p>
         </div>
         <p class="bikes__card__size">{{ __('pid_size') }}: {{ $bike->size }}</p>
-        <p class="bikes__card__price">{{ $bike->price_per_hour }}€ / {{ __('pid_per_hour') }}</p>
+        <p class="bikes__card__price">{{ $bike->price_per_hour }}€/h</p>
     </div>
 </a>

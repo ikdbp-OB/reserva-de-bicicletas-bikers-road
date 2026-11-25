@@ -1,7 +1,10 @@
 .bike-show {
     width: 100%;
     max-width: 1500px;
-    min-height: calc(100vh - 94px);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: 0 auto;
     padding: 48px 56px 64px;
     background: var(--md-sys-color-background);
@@ -9,11 +12,13 @@
 }
 
 .bike-show__title {
+    text-align: left;
     grid-column: 1;
     margin: 0 0 18px;
     font-size: clamp(1.8rem, 3vw, 2.25rem);
     line-height: 1.1;
     font-weight: 800;
+    margin-left: 5vw;
 }
 
 .bike-show__content {
@@ -29,6 +34,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 8px;
 }
 
 .bike-show__image img {
@@ -77,14 +84,14 @@
     width: 29px;
     height: 29px;
     padding: 0;
-    border: 2px solid var(--md-sys-color-on-surface);
     border-radius: 50%;
     background: var(--colour);
     cursor: pointer;
+    border: none;
 }
 
-.bike-show__colour--dark {
-    border-color: transparent;
+.bike-show__colour--selected {
+    border: 2px solid var(--md-sys-color-on-surface);
 }
 
 .bike-show__size {
@@ -121,6 +128,11 @@
     background: var(--md-sys-color-primary);
     color: var(--md-sys-color-on-primary);
     text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.bike-show__reserve:hover{
+    background: var(--md-sys-color-primary-container);
 }
 
 .bike-show__reserve span {
