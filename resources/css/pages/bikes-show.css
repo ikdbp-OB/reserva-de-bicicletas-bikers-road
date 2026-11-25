@@ -1,0 +1,166 @@
+.bike-show {
+    width: 100%;
+    max-width: 1500px;
+    min-height: calc(100vh - 94px);
+    margin: 0 auto;
+    padding: 48px 56px 64px;
+    background: var(--md-sys-color-background);
+}
+
+.bike-show__title {
+    grid-column: 1;
+    margin: 0 0 18px;
+    font-size: clamp(1.8rem, 3vw, 2.25rem);
+    line-height: 1.1;
+    font-weight: 800;
+}
+
+.bike-show__content {
+    display: grid;
+    grid-template-columns: minmax(0, 2.25fr) minmax(300px, 0.75fr);
+    align-items: center;
+    gap: 40px;
+    min-height: 520px;
+}
+
+.bike-show__image {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bike-show__image img {
+    display: block;
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+}
+
+.bike-show__details {
+    min-width: 0;
+    padding-top: 2px;
+}
+
+.bike-show__details h2,
+.bike-show__price h2 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.bike-show__price,
+.bike-show__option,
+.bike-show__description {
+    margin-bottom: 18px;
+}
+
+.bike-show__price p {
+    font-size: 1rem;
+}
+
+.bike-show__colour-name {
+    margin: 0 0 8px;
+    font-size: 0.82rem;
+}
+
+.bike-show__colours,
+.bike-show__sizes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bike-show__colour {
+    width: 29px;
+    height: 29px;
+    padding: 0;
+    border: 2px solid var(--md-sys-color-on-surface);
+    border-radius: 50%;
+    background: var(--colour);
+    cursor: pointer;
+}
+
+.bike-show__colour--dark {
+    border-color: transparent;
+}
+
+.bike-show__size {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 7px;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 5px;
+    background: transparent;
+    color: var(--md-sys-color-on-surface);
+    font-size: 0.72rem;
+    cursor: pointer;
+}
+
+.bike-show__size--selected {
+    border: 2px solid #9a1c36;
+    background: rgba(154, 28, 54, 0.12);
+}
+
+.bike-show__description p {
+    max-width: 330px;
+    font-size: 0.72rem;
+    line-height: 1.35;
+}
+
+.bike-show__reserve {
+    width: 100%;
+    min-height: 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #070707;
+    color: #fff;
+    text-decoration: none;
+}
+
+.bike-show__reserve span {
+    font-size: 1.05rem;
+    line-height: 1.1;
+}
+
+.bike-show__reserve small {
+    margin-top: 2px;
+    font-size: 0.48rem;
+    line-height: 1;
+}
+
+.bike-show__reserve--disabled {
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+@media (max-width: 767px) {
+    .bike-show {
+        padding: 24px 18px 36px;
+    }
+
+    .bike-show__title {
+        margin-bottom: 12px;
+    }
+
+    .bike-show__content {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .bike-show__image {
+        min-height: 270px;
+    }
+
+    .bike-show__image img {
+        max-height: 270px;
+    }
+
+    .bike-show__details {
+        width: 100%;
+    }
+}
