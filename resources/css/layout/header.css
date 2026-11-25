@@ -106,6 +106,15 @@ svg:hover{
     gap: 20px;
 }
 
+.mobile__nav a{
+    width: fit-content;
+}
+
+.mobile__nav a:hover{
+    text-decoration: underline;
+    transform: scale(1.1);
+    transition: transform 0.1s ease;
+}
 
 /*PC*/
 @media (min-width: 768px) {
