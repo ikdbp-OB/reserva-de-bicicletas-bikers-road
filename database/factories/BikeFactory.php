@@ -17,9 +17,19 @@ class BikeFactory extends Factory
      */
     public function definition(): array
     {
+        $modelsByBrand = [
+            'Orbea' => ['Oiz H30', 'Alma H30', 'Occam H30'],
+            'Trek' => ['Marlin 7', 'Fuel EX 5', 'Domane AL 2'],
+            'Specialized' => ['Rockhopper Comp 29', 'Chisel Comp'],
+            'Giant' => ['Talon 1'],
+            'Canyon' => ['Grand Canyon 7'],
+        ];
+        $brand = fake()->randomElement(array_keys($modelsByBrand));
+
         return [
             'serial_number' => fake()->unique()->regexify('[A-Z0-9]{10}'),
-            'model' => fake()->word(),
+            'brand' => $brand,
+            'model' => $brand . ' ' . fake()->randomElement($modelsByBrand[$brand]),
             'price_per_hour' => fake()->randomFloat(2, 5, 50),
             'stock' => fake()->numberBetween(0, 20),
             'colour' => fake()->safeColorName(),

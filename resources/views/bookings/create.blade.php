@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Reservar')
+@section('title', __('pid_book'))
 
 @section('content')
     <section class="booking-create">
@@ -14,7 +14,18 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('bookings.store') }}" class="booking-create__form" id="booking-form">
+        <form
+            method="POST"
+            action="{{ route('bookings.store') }}"
+            class="booking-create__form"
+            id="booking-form"
+            data-price-per-hour="{{ $bike->price_per_hour }}"
+            data-locale="{{ app()->getLocale() }}"
+            data-hour-label="{{ __('pid_booking_hour') }}"
+            data-hours-label="{{ __('pid_booking_hours') }}"
+            data-validation-required="{{ __('pid_booking_input_required') }}"
+            data-validation-invalid="{{ __('pid_booking_input_invalid') }}"
+        >
             @csrf
             <input type="hidden" name="bike_id" value="{{ $bike->id }}">
             <input type="hidden" id="start_time" name="start_time" value="{{ old('start_time') }}">
@@ -23,7 +34,7 @@
             <div class="booking-create__left">
                 <div class="booking-create__section">
                     <h2>{{ __('pid_price') }}</h2>
-                    <p>{{ number_format($bike->price_per_hour, 2, '.', '') }}€/h</p>
+                    <p>{{ \Illuminate\Support\Number::currency($bike->price_per_hour, in: 'EUR', locale: app()->getLocale()) }} / {{ __('pid_booking_hour') }}</p>
                 </div>
 
                 <fieldset class="booking-create__section">
@@ -31,7 +42,7 @@
                     <div class="booking-create__payments">
                         <label class="booking-create__payment">
                             <input type="radio" name="payment_method" value="paypal" checked>
-                            <span>Paypal</span>
+                            <span>PayPal</span>
                         </label>
                         <label class="booking-create__payment">
                             <input type="radio" name="payment_method" value="bizum">
@@ -77,17 +88,17 @@
                         <div class="booking-create__time">
                             <span>{{ __('pid_booking_start_time') }}</span>
                             <div class="booking-create__time-inputs">
-                                <input type="number" id="start_hour" name="start_hour" min="0" max="23" value="{{ old('start_hour') }}" required aria-label="Hora de inicio">
+                                <input type="number" id="start_hour" name="start_hour" min="0" max="23" value="{{ old('start_hour') }}" required aria-label="{{ __('pid_booking_start_hour') }}">
                                 <span>-</span>
-                                <input type="number" id="start_minute" name="start_minute" min="0" max="59" value="{{ old('start_minute') }}" required aria-label="Minutos de inicio">
+                                <input type="number" id="start_minute" name="start_minute" min="0" max="59" value="{{ old('start_minute') }}" required aria-label="{{ __('pid_booking_start_minute') }}">
                             </div>
                         </div>
                         <div class="booking-create__time">
                             <span>{{ __('pid_booking_end_time') }}</span>
                             <div class="booking-create__time-inputs">
-                                <input type="number" id="end_hour" name="end_hour" min="0" max="23" value="{{ old('end_hour') }}" required aria-label="Hora de finalización">
+                                <input type="number" id="end_hour" name="end_hour" min="0" max="23" value="{{ old('end_hour') }}" required aria-label="{{ __('pid_booking_end_hour') }}">
                                 <span>-</span>
-                                <input type="number" id="end_minute" name="end_minute" min="0" max="59" value="{{ old('end_minute') }}" required aria-label="Minutos de finalización">
+                                <input type="number" id="end_minute" name="end_minute" min="0" max="59" value="{{ old('end_minute') }}" required aria-label="{{ __('pid_booking_end_minute') }}">
                             </div>
                         </div>
                     </div>
@@ -112,7 +123,7 @@
                         type="text"
                         id="cardholder"
                         autocomplete="cc-name"
-                        placeholder="Nombre apellido..."
+                        placeholder="{{ __('pid_name_placeholder') }}"
                     >
 
                     <div class="booking-create__card-row">
@@ -126,6 +137,18 @@
                         </div>
                     </div>
                 </fieldset>
+
+                <div class="booking-create__estimate" aria-live="polite">
+                    <div class="booking-create__estimate-details">
+                        <h2>{{ __('pid_booking_estimated_total') }}</h2>
+                        <p>
+                            {{ __('pid_booking_estimated_duration') }}:
+                            <span id="booking-duration">—</span>
+                            <span id="booking-duration-unit"></span>
+                        </p>
+                    </div>
+                    <p class="booking-create__total" id="booking-total">—</p>
+                </div>
 
                 <button type="submit" class="booking-create__submit">{{ __('pid_confirm_booking') }}</button>
             </div>

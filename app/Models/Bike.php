@@ -11,6 +11,7 @@ class Bike extends Model
 
     protected $fillable = [
         'serial_number',
+        'brand',
         'model',
         'price_per_hour',
         'status',

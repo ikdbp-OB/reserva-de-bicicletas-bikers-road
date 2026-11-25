@@ -8,7 +8,7 @@
         @forelse ($bookings as $booking)
             <x-cards.bookings-card :booking="$booking" :number="$loop->iteration" />
         @empty
-            <p>No hay reservas disponibles.</p>
+            <p>{{ __('pid_booking_empty') }}</p>
         @endforelse
     </section>
 @endsection

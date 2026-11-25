@@ -19,7 +19,7 @@ class BookingController extends Controller
     public function create(Bike $bike)
     {
         if ($bike->status !== 'available') {
-            return redirect()->route('bikes.index')->with('error', 'Esta bicicleta no se encuentra disponible para alquilar.');
+            return redirect()->route('bikes.index')->with('error', __('pid_booking_bike_unavailable'));
         }
         return view('bookings.create', compact('bike'));
     }
@@ -30,6 +30,13 @@ class BookingController extends Controller
             'bike_id' => 'required|exists:bikes,id',
             'start_time' => ['required', 'date_format:Y-m-d\TH:i'],
             'end_time' => ['required', 'date_format:Y-m-d\TH:i'],
+        ], [
+            'bike_id.required' => __('pid_booking_validation_bike_required'),
+            'bike_id.exists' => __('pid_booking_validation_bike_exists'),
+            'start_time.required' => __('pid_booking_validation_start_required'),
+            'start_time.date_format' => __('pid_booking_validation_start_format'),
+            'end_time.required' => __('pid_booking_validation_end_required'),
+            'end_time.date_format' => __('pid_booking_validation_end_format'),
         ]);
 
         $bookingTimezone = 'Europe/Madrid';
@@ -37,11 +44,11 @@ class BookingController extends Controller
         $localEndTime = Carbon::parse($validated['end_time'], $bookingTimezone);
 
         if ($localStartTime->lt(Carbon::now($bookingTimezone))) {
-            return back()->withInput()->withErrors(['start_time' => 'La fecha de inicio debe ser actual o futura.']);
+            return back()->withInput()->withErrors(['start_time' => __('pid_booking_start_must_be_future')]);
         }
 
         if ($localEndTime->lte($localStartTime)) {
-            return back()->withInput()->withErrors(['end_time' => 'La fecha de fin debe ser posterior a la fecha de inicio.']);
+            return back()->withInput()->withErrors(['end_time' => __('pid_booking_end_must_follow_start')]);
         }
 
         $startTime = $localStartTime->copy()->utc();
@@ -50,7 +57,7 @@ class BookingController extends Controller
         $bike=Bike::findOrFail($validated['bike_id']);
 
         if ($bike->status !== 'available') {
-            return back()->withErrors(['bike_id' => 'La bicicleta seleccionada no esta disponible.']);
+            return back()->withErrors(['bike_id' => __('pid_booking_bike_unavailable')]);
         }
 
         $hasOverlap = Booking::where('bike_id', $bike->id)
@@ -66,7 +73,7 @@ class BookingController extends Controller
             ->exists();
 
         if ($hasOverlap) {
-            return back()->withInput()->withErrors(['start_time' => 'La bicicleta ya esta reservada en ese horario.']);
+            return back()->withInput()->withErrors(['start_time' => __('pid_booking_time_overlap')]);
         }
 
         $hours = $startTime->diffInHours($endTime);
@@ -82,13 +89,13 @@ class BookingController extends Controller
             'total_cost' => $totalCost,
         ]);
 
-        return redirect()->route('bookings.index')->with('success', 'Reserva realizada con exito!');
+        return redirect()->route('bookings.index')->with('success', __('pid_booking_created'));
     }
 
     public function show(Booking $booking)
     {
         if ($booking->user_id !== Auth::id()) {
-            abort(403, 'No tienes permiso para ver esta reserva.');
+            abort(403, __('pid_booking_view_forbidden'));
         }
         $booking->load('bike');
         return view('bookings.show', compact('booking'));
@@ -97,12 +104,12 @@ class BookingController extends Controller
     public function cancel(Booking $booking)
     {
         if ($booking->user_id !== Auth::id()) {
-            abort(403, 'No tienes permiso para modificar esta reserva.');
+            abort(403, __('pid_booking_update_forbidden'));
         }
         if ($booking->status !== 'pending') {
-            return back()->with('error', 'Solo es posible cancelar reservas en estado pendiente.');
+            return back()->with('error', __('pid_booking_cancel_pending_only'));
         }
         $booking->update(['status' => 'cancelled']);
-        return redirect()->route('bookings.index')->with('success', 'La reserva ha sido cancelada correctamente.');
+        return redirect()->route('bookings.index')->with('success', __('pid_booking_cancelled'));
     }
 }
