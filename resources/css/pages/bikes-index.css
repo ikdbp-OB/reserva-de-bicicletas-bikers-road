@@ -14,6 +14,45 @@
     flex: 1;
 }
 
+.bikes__results {
+    flex: 1;
+    min-width: 0;
+}
+
+.bikes__results-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--md-sys-color-on-background);
+}
+
+.bikes__results-controls select,
+.bikes__results-controls button {
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--md-sys-color-on-background);
+    background: var(--md-sys-color-surface);
+    border: 1px solid var(--md-sys-color-outline);
+    cursor: pointer;
+}
+
+.bikes__results-count {
+    margin-bottom: 1rem;
+    color: var(--md-sys-color-on-background);
+}
+
+.bikes__container [hidden] {
+    display: none;
+}
+
+#bikes-empty-message,
+#bikes-filtered-empty-message {
+    grid-column: 1 / -1;
+    color: var(--md-sys-color-on-background);
+}
+
 .bikes__filters {
     width: 20vw;
     min-width: 220px;
@@ -80,7 +119,8 @@
 }
 
 .filter-content input[type="text"],
-.filter-content input[type="number"] {
+.filter-content input[type="number"],
+.filter-content select {
     width: 100%;
     padding: 0.6rem 0.8rem;
     font-family: 'Inter', sans-serif;
@@ -95,8 +135,21 @@
 }
 
 .filter-content input[type="text"]:focus,
-.filter-content input[type="number"]:focus {
+.filter-content input[type="number"]:focus,
+.filter-content select:focus {
     background-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .bikes__container__wrapper {
+        flex-direction: column;
+        padding: 24px;
+    }
+
+    .bikes__filters,
+    .bikes__results {
+        width: 100%;
+    }
 }
 
 .filter-content label:has(input[type="checkbox"]) {

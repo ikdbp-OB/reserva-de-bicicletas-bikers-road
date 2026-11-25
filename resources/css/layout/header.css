@@ -90,6 +90,30 @@ svg:hover{
     gap: 20px;
 }
 
+#theme-toggle,
+#header__menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    color: var(--md-sys-color-on-surface);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+#theme-toggle svg,
+#header__menu svg{
+    width: 24px;
+    height: 24px;
+}
+
+#theme-toggle:focus-visible,
+#header__menu:focus-visible{
+    outline: 2px solid var(--md-sys-color-on-surface);
+    outline-offset: 3px;
+}
+
 .mobile__nav{
     position: absolute;
     top: 0;

@@ -2,42 +2,41 @@ const changeColorButton = document.getElementById('theme-toggle');
 const moonIcon = document.getElementById('theme-icon-moon');
 const sunIcon = document.getElementById('theme-icon-sun');
 
-if(localStorage.getItem('theme') === null) {
-    const lightTheme = window.matchMedia('(prefers-color-scheme: light)').matches;
+if (changeColorButton && moonIcon && sunIcon) {
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = localStorage.getItem('theme');
+    const hasSavedTheme = savedTheme === 'dark' || savedTheme === 'light';
 
-    if(lightTheme) {
-        document.documentElement.className = "light";
-        localStorage.setItem('theme', 'light');
-    }else{
-        document.documentElement.className = "dark";
-        localStorage.setItem('theme', 'dark');
+    function applyTheme(theme) {
+        const isDark = theme === 'dark';
+
+        document.documentElement.classList.toggle('dark', isDark);
+        document.documentElement.classList.toggle('light', !isDark);
+        moonIcon.style.display = isDark ? 'none' : 'block';
+        sunIcon.style.display = isDark ? 'block' : 'none';
+        changeColorButton.setAttribute('aria-pressed', String(isDark));
+        changeColorButton.setAttribute(
+            'aria-label',
+            isDark ? changeColorButton.dataset.darkLabel : changeColorButton.dataset.lightLabel
+        );
     }
-}else{
-    if(localStorage.getItem('theme') === 'dark') {
-        document.documentElement.className = ""
-        document.documentElement.classList.add('dark');
-        moonIcon.style.display = 'none';
-        sunIcon.style.display = 'block';
-    }else{
-        document.documentElement.className = ""
-        document.documentElement.classList.add('light');
-        moonIcon.style.display = 'block';
-        sunIcon.style.display = 'none';
+
+    applyTheme(hasSavedTheme ? savedTheme : systemTheme.matches ? 'dark' : 'light');
+
+    if (!hasSavedTheme) {
+        systemTheme.addEventListener('change', (event) => {
+            const currentTheme = localStorage.getItem('theme');
+
+            if (currentTheme !== 'dark' && currentTheme !== 'light') {
+                applyTheme(event.matches ? 'dark' : 'light');
+            }
+        });
     }
+
+    changeColorButton.addEventListener('click', () => {
+        const theme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+
+        localStorage.setItem('theme', theme);
+        applyTheme(theme);
+    });
 }
-
-changeColorButton.addEventListener('click', () => {
-    if (document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.remove('dark');
-        document.documentElement.classList.add('light');
-        moonIcon.style.display = 'block';
-        sunIcon.style.display = 'none';
-        localStorage.setItem('theme', 'light');
-    } else {
-        document.documentElement.classList.remove('light');
-        document.documentElement.classList.add('dark');
-        moonIcon.style.display = 'none';
-        sunIcon.style.display = 'block';
-        localStorage.setItem('theme', 'dark');
-    }
-});

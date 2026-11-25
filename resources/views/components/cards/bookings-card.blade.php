@@ -1,7 +1,7 @@
 @props(['booking'])
 @props(['number'])
 
-<a href="{{ route('bookings.show', $booking->id) }}" class="card card-bookings">
+<a href="{{ route('bookings.show', $booking->id) }}" class="card card-bookings" data-status="{{ strtolower($booking->status) }}">
     <div class="card-bookings__image">
         <img class="card-bookings__img" 
              src="{{ asset($booking->bike?->image_url ?? '/images/bikes/orbea-oiz-h30/orbea-oiz-h30.png') }}" 
