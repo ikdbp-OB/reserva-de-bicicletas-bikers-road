@@ -50,8 +50,9 @@
                         <input
                             class="booking-create__date"
                             type="date"
-                            id="booking_date"
-                            value="{{ old('booking_date', now()->format('Y-m-d')) }}"
+                            id="booking_start_date"
+                            name="booking_start_date"
+                            value="{{ old('booking_start_date', now('Europe/Madrid')->format('Y-m-d')) }}"
                             required
                         >
                     </div>
@@ -62,7 +63,8 @@
                             class="booking-create__date"
                             type="date"
                             id="booking_end_date"
-                            value="{{ old('booking_end_date', now()->format('Y-m-d')) }}"
+                            name="booking_end_date"
+                            value="{{ old('booking_end_date', now('Europe/Madrid')->format('Y-m-d')) }}"
                             required
                         >
                     </div>
@@ -75,17 +77,17 @@
                         <div class="booking-create__time">
                             <span>{{ __('pid_booking_start_time') }}</span>
                             <div class="booking-create__time-inputs">
-                                <input type="number" id="start_hour" min="0" max="23" aria-label="Hora de inicio">
+                                <input type="number" id="start_hour" name="start_hour" min="0" max="23" value="{{ old('start_hour') }}" required aria-label="Hora de inicio">
                                 <span>-</span>
-                                <input type="number" id="start_minute" min="0" max="59" aria-label="Minutos de inicio">
+                                <input type="number" id="start_minute" name="start_minute" min="0" max="59" value="{{ old('start_minute') }}" required aria-label="Minutos de inicio">
                             </div>
                         </div>
                         <div class="booking-create__time">
                             <span>{{ __('pid_booking_end_time') }}</span>
                             <div class="booking-create__time-inputs">
-                                <input type="number" id="end_hour" min="0" max="23" aria-label="Hora de finalización">
+                                <input type="number" id="end_hour" name="end_hour" min="0" max="23" value="{{ old('end_hour') }}" required aria-label="Hora de finalización">
                                 <span>-</span>
-                                <input type="number" id="end_minute" min="0" max="59" aria-label="Minutos de finalización">
+                                <input type="number" id="end_minute" name="end_minute" min="0" max="59" value="{{ old('end_minute') }}" required aria-label="Minutos de finalización">
                             </div>
                         </div>
                     </div>
@@ -129,8 +131,4 @@
             </div>
         </form>
     </section>
-
-    <script>
-        
-    </script>
 @endsection

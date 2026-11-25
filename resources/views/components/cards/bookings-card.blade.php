@@ -17,15 +17,15 @@
         <div class="bookings__card__dates">
             <p class="bookings__card__date">
                 <strong>{{ __('pid_booking_date') }}:</strong> 
-                {{ $booking->start_time?->format('d/m/Y') }}
+                {{ $booking->start_time?->timezone('Europe/Madrid')->format('d/m/Y') }}
             </p>
             <p class="bookings__card__date">
                 <strong>{{ __('pid_booking_start_time') }}:</strong> 
-                {{ $booking->start_time?->format('H:i') }}
+                {{ $booking->start_time?->timezone('Europe/Madrid')->format('H:i') }}
             </p>
             <p class="bookings__card__date">
                 <strong>{{ __('pid_booking_end_time') }}:</strong> 
-                {{ $booking->end_time?->format('H:i') }}
+                {{ $booking->end_time?->timezone('Europe/Madrid')->format('H:i') }}
             </p>
         </div>
 

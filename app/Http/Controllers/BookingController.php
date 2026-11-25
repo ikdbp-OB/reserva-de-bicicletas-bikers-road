@@ -26,20 +26,32 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'bike_id' => 'required|exists:bikes,id',
-            'start_time' => 'required|date|after_or_equal:now',
-            'end_time' => 'required|date|after:start_time',
+            'start_time' => ['required', 'date_format:Y-m-d\TH:i'],
+            'end_time' => ['required', 'date_format:Y-m-d\TH:i'],
         ]);
 
-        $bike=Bike::findOrFail($request->bike_id);
+        $bookingTimezone = 'Europe/Madrid';
+        $localStartTime = Carbon::parse($validated['start_time'], $bookingTimezone);
+        $localEndTime = Carbon::parse($validated['end_time'], $bookingTimezone);
+
+        if ($localStartTime->lt(Carbon::now($bookingTimezone))) {
+            return back()->withInput()->withErrors(['start_time' => 'La fecha de inicio debe ser actual o futura.']);
+        }
+
+        if ($localEndTime->lte($localStartTime)) {
+            return back()->withInput()->withErrors(['end_time' => 'La fecha de fin debe ser posterior a la fecha de inicio.']);
+        }
+
+        $startTime = $localStartTime->copy()->utc();
+        $endTime = $localEndTime->copy()->utc();
+
+        $bike=Bike::findOrFail($validated['bike_id']);
 
         if ($bike->status !== 'available') {
             return back()->withErrors(['bike_id' => 'La bicicleta seleccionada no esta disponible.']);
         }
-
-        $startTime=Carbon::parse($request->start_time);
-        $endTime=Carbon::parse($request->end_time);
 
         $hasOverlap = Booking::where('bike_id', $bike->id)
             ->whereIn('status', ['pending', 'active'])

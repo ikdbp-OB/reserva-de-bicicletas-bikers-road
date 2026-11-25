@@ -1,21 +1,29 @@
 const bookingForm = document.getElementById('booking-form');
-        const bookingDate = document.getElementById('booking_date');
 
-        function pad(value) {
-            return String(value).padStart(2, '0');
-        }
+if (bookingForm) {
+    function pad(value) {
+        return String(value).padStart(2, '0');
+    }
 
-        function updateBookingTimes() {
-            const date = bookingDate.value;
-            const startHour = pad(document.getElementById('start_hour').value);
-            const startMinute = pad(document.getElementById('start_minute').value);
-            const endHour = pad(document.getElementById('end_hour').value);
-            const endMinute = pad(document.getElementById('end_minute').value);
+    function updateBookingTimes() {
+        const startDate = document.getElementById('booking_start_date').value;
+        const endDate = document.getElementById('booking_end_date').value;
+        const startHour = document.getElementById('start_hour').value;
+        const startMinute = document.getElementById('start_minute').value;
+        const endHour = document.getElementById('end_hour').value;
+        const endMinute = document.getElementById('end_minute').value;
 
-            document.getElementById('start_time').value = `${date}T${startHour}:${startMinute}`;
-            document.getElementById('end_time').value = `${date}T${endHour}:${endMinute}`;
-        }
+        document.getElementById('start_time').value =
+            startDate && startHour !== '' && startMinute !== ''
+                ? `${startDate}T${pad(startHour)}:${pad(startMinute)}`
+                : '';
+        document.getElementById('end_time').value =
+            endDate && endHour !== '' && endMinute !== ''
+                ? `${endDate}T${pad(endHour)}:${pad(endMinute)}`
+                : '';
+    }
 
-        bookingForm.addEventListener('submit', updateBookingTimes);
-        bookingForm.addEventListener('input', updateBookingTimes);
-        updateBookingTimes();
+    bookingForm.addEventListener('submit', updateBookingTimes);
+    bookingForm.addEventListener('input', updateBookingTimes);
+    updateBookingTimes();
+}
