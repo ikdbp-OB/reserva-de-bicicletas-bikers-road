@@ -2,7 +2,7 @@
 
 <a href="{{ route('bikes.show', $bike->id) }}" class="bikes__card">
     <div class="bikes__card__image">
-        <img class="card-img" src="/images/bikes/prueba/prueba.png" alt="{{ $bike->model }}">
+        <img class="card-img" src="/images/bikes/orbea-oiz-h30/orbea-oiz-h30.png" alt="{{ $bike->model }}">
     </div>
     <div class="bikes__card__details">
         <h2 class="bikes__card__model">{{ $bike->model }}</h2>
