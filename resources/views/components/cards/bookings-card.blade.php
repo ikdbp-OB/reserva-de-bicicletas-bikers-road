@@ -4,7 +4,7 @@
 <a href="{{ route('bookings.show', $booking->id) }}" class="bookings__card">
     <div class="bookings__card__image">
         <img class="bookings__card__img" 
-             src="{{ asset($booking->bike?->image_url ?? 'images/bikes/prueba/prueba.png') }}" 
+             src="{{ asset($booking->bike?->image_url ?? '/images/bikes/orbea-oiz-h30/orbea-oiz-h30.png') }}" 
              alt="{{ $booking->bike?->model ?? 'Bike' }}">
     </div>
 
