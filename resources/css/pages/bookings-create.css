@@ -3,6 +3,13 @@
     min-height: calc(100vh - 94px);
     margin: 0 auto;
     padding: 48px 56px 64px;
+    background: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+    color-scheme: light;
+}
+
+.dark .booking-create {
+    color-scheme: dark;
 }
 
 .booking-create__title {
@@ -89,6 +96,12 @@
     padding: 0 12px;
 }
 
+.booking-create__date::placeholder,
+.booking-create__card input::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+    opacity: 1;
+}
+
 .booking-create__date {
     max-width: 240px;
 }
@@ -154,8 +167,8 @@
     margin-top: 6px;
     border: 0;
     border-radius: 999px;
-    background: #080808;
-    color: #fff;
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
     font-size: 1rem;
     cursor: pointer;
 }
