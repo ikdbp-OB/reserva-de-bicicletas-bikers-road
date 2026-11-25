@@ -5,6 +5,7 @@
     margin: 0 auto;
     padding: 48px 56px 64px;
     background: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
 }
 
 .bike-show__title {
@@ -117,8 +118,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    background: #070707;
-    color: #fff;
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
     text-decoration: none;
 }
 
