@@ -5,12 +5,12 @@
     <div class="card-bookings__image">
         <img class="card-bookings__img" 
              src="{{ asset($booking->bike?->image_url ?? '/images/bikes/orbea-oiz-h30/orbea-oiz-h30.png') }}" 
-             alt="{{ $booking->bike?->model ?? 'Bike' }}">
+             alt="{{ $booking->bike?->model ?? __('pid_bike') }}">
     </div>
 
     <div class="card-bookings__details">
         <div class="card-bookings__header">
-            <h2 class="card-bookings__model">{{ $booking->bike?->model ?? 'Bicicleta no disponible' }}</h2>
+            <h2 class="card-bookings__model">{{ $booking->bike?->model ?? __('pid_booking_bike_unavailable_name') }}</h2>
             <span class="card-bookings__id">#{{ $number }}</span>
         </div>
 
@@ -44,10 +44,10 @@
             </span>
 
         </div>
-
+        
         <div class="card-bookings__footer">
-            <p class="card-bookings__price">{{ $booking->total_cost }}€</p>
-            <span class="card-bookings__cta">{{ __('pid_view_details') }} →</span>
+                <p class="card-bookings__price">{{ \Illuminate\Support\Number::currency($booking->total_cost, in: 'EUR', locale: app()->getLocale()) }}</p>
+                <span class="card-bookings__cta">{{ __('pid_view_details') }} →</span>
         </div>
     </div>
 </a>
