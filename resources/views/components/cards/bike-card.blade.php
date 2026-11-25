@@ -17,5 +17,8 @@
         </div>
         <p class="card-bikes__size">{{ __('pid_size') }}: {{ $bike->size }}</p>
         <p class="card-bikes__price">{{ $bike->price_per_hour }}€/h</p>
+        <p class="card-bikes__status {{ $bike->status === 'available' ? 'card-bikes__status--available' : 'card-bikes__status--unavailable' }}">
+            {{ $bike->status === 'available' ? __('Disponible') : __('No disponible') }}
+        </p>
     </div>
 </a>
