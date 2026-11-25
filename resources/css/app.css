@@ -5,8 +5,9 @@
 @import "./pages/landing-page.css";
 @import "./pages/bikes-index.css";
 @import "./pages/bikes-show.css";
-@import "./components/bikes-card.css";
-@import "./components/bookings-card.css";
+@import "./components/card.css";
+@import "./components/card-bikes.css";
+@import "./components/card-bookings.css";
 @import "./pages/bookings-index.css";
 @import "./pages/bookings-create.css";
 @import "./pages/login-page.css";
