@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     padding: 40px;
+    color: var(--md-sys-color-on-background);
 }
 
 .bikes__container{

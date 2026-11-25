@@ -14,6 +14,10 @@ class Bike extends Model
         'model',
         'price_per_hour',
         'status',
+        'stock',
+        'colour',
+        'img_route',
+        'size',
     ];
 
     function bookings()

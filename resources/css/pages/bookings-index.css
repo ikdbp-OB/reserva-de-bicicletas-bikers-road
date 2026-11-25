@@ -4,6 +4,7 @@
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
+    color: var(--md-sys-color-on-background);
 }
 
 .bookings__container{
@@ -13,4 +14,5 @@
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
+    color: var(--md-sys-color-on-background);
 }
