@@ -1,6 +1,11 @@
 @props(['bike'])
 
-<a href="{{ route('bikes.show', $bike->id) }}" class="card card-bikes">
+<a href="{{ route('bikes.show', $bike->id) }}"
+    class="card card-bikes"
+    data-available="{{ $bike->status === 'available' ? '1' : '0' }}"
+    data-brand="{{ strtolower($bike->brand ?? '') }}"
+    data-model="{{ strtolower($bike->model ?? '') }}"
+    data-price="{{ $bike->price_per_hour }}">
     <div class="card-bikes__image">
         <img class="card-img" src="/images/bikes/orbea-oiz-h30/orbea-oiz-h30.png" alt="{{ $bike->model }}">
     </div>
