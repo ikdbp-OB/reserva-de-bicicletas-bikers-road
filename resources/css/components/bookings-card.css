@@ -91,7 +91,6 @@
     font-weight: 600;
 }
 
-/* Adaptación automática en móviles */
 @media (max-width: 600px) {
     .bookings__card {
         flex-direction: column;
