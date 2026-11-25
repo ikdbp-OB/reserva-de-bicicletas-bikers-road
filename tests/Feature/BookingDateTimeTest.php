@@ -36,3 +36,33 @@ it('rejects a booking whose end time is not after its start time', function () {
 
     $this->assertDatabaseCount('bookings', 0);
 });
+
+it('rejects a booking whose start time is in the past', function () {
+    $user = User::factory()->create();
+    $bike = Bike::factory()->create(['status' => 'available']);
+
+    $this->actingAs($user)
+        ->post(route('bookings.store'), [
+            'bike_id' => $bike->id,
+            'start_time' => '2000-07-15T10:30',
+            'end_time' => '2000-07-15T12:30',
+        ])
+        ->assertSessionHasErrors('start_time');
+
+    $this->assertDatabaseCount('bookings', 0);
+});
+
+it('rejects a booking whose end time is before its start time', function () {
+    $user = User::factory()->create();
+    $bike = Bike::factory()->create(['status' => 'available']);
+
+    $this->actingAs($user)
+        ->post(route('bookings.store'), [
+            'bike_id' => $bike->id,
+            'start_time' => '2030-07-15T12:30',
+            'end_time' => '2030-07-15T10:30',
+        ])
+        ->assertSessionHasErrors('end_time');
+
+    $this->assertDatabaseCount('bookings', 0);
+});

@@ -78,6 +78,15 @@
     background: var(--md-sys-color-surface-container-low);
 }
 
+.booking-create__validation-message {
+    color: var(--md-sys-color-error);
+}
+
+.booking-create__date[aria-invalid="true"],
+.booking-create__time-inputs input[aria-invalid="true"] {
+    border-color: var(--md-sys-color-error);
+}
+
 .booking-create__estimate-details {
     min-width: 0;
 }

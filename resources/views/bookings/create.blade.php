@@ -25,6 +25,8 @@
             data-hours-label="{{ __('pid_booking_hours') }}"
             data-validation-required="{{ __('pid_booking_input_required') }}"
             data-validation-invalid="{{ __('pid_booking_input_invalid') }}"
+            data-validation-past="{{ __('pid_booking_start_in_past') }}"
+            data-validation-order="{{ __('pid_booking_end_before_start') }}"
         >
             @csrf
             <input type="hidden" name="bike_id" value="{{ $bike->id }}">
@@ -81,6 +83,7 @@
                     </div>
                     
                 </div>
+                <p id="booking-range-error" class="booking-create__validation-message" role="alert" hidden></p>
 
                 <div class="booking-create__section">
                     <h2>{{ __('pid_booking_time') }}</h2>

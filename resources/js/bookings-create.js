@@ -1,3 +1,5 @@
+import { getMadridTimestamp, validateBookingRange } from './booking-validation.js';
+
 const bookingForm = document.getElementById('booking-form');
 
 if (bookingForm) {
@@ -11,119 +13,88 @@ if (bookingForm) {
         currency: 'EUR',
     });
     const pluralRules = new Intl.PluralRules(locale);
-    const madridTimeFormatter = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Europe/Madrid',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hourCycle: 'h23',
-    });
+    const startDateInput = document.getElementById('booking_start_date');
+    const endDateInput = document.getElementById('booking_end_date');
+    const startHourInput = document.getElementById('start_hour');
+    const startMinuteInput = document.getElementById('start_minute');
+    const endHourInput = document.getElementById('end_hour');
+    const endMinuteInput = document.getElementById('end_minute');
+    const startTimeInput = document.getElementById('start_time');
+    const endTimeInput = document.getElementById('end_time');
+    const durationElement = document.getElementById('booking-duration');
+    const durationUnitElement = document.getElementById('booking-duration-unit');
+    const totalElement = document.getElementById('booking-total');
+    const validationMessage = document.getElementById('booking-range-error');
+    const requiredInputs = Array.from(bookingForm.querySelectorAll('[required]'));
 
     function pad(value) {
         return String(value).padStart(2, '0');
     }
 
-    function getMadridTimestamp(date, hour, minute) {
-        const dateParts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
-        const numericHour = Number(hour);
-        const numericMinute = Number(minute);
-
-        if (
-            !dateParts ||
-            hour === '' ||
-            minute === '' ||
-            !Number.isInteger(numericHour) ||
-            !Number.isInteger(numericMinute) ||
-            numericHour < 0 ||
-            numericHour > 23 ||
-            numericMinute < 0 ||
-            numericMinute > 59
-        ) {
-            return NaN;
-        }
-
-        const [, year, month, day] = dateParts;
-        const wallTime = Date.UTC(
-            Number(year),
-            Number(month) - 1,
-            Number(day),
-            numericHour,
-            numericMinute
-        );
-        let timestamp = wallTime;
-
-        for (let attempt = 0; attempt < 3; attempt++) {
-            const parts = Object.fromEntries(
-                madridTimeFormatter
-                    .formatToParts(new Date(timestamp))
-                    .map(({ type, value }) => [type, value])
-            );
-            const formattedWallTime = Date.UTC(
-                Number(parts.year),
-                Number(parts.month) - 1,
-                Number(parts.day),
-                Number(parts.hour),
-                Number(parts.minute)
-            );
-
-            timestamp = wallTime - (formattedWallTime - timestamp);
-        }
-
-        const resolved = Object.fromEntries(
-            madridTimeFormatter
-                .formatToParts(new Date(timestamp))
-                .map(({ type, value }) => [type, value])
-        );
-
-        if (
-            resolved.year !== year ||
-            resolved.month !== month ||
-            resolved.day !== day ||
-            resolved.hour !== pad(numericHour) ||
-            resolved.minute !== pad(numericMinute)
-        ) {
-            return NaN;
-        }
-
-        return timestamp;
+    function getBookingTimestamp(dateInput, hourInput, minuteInput) {
+        return getMadridTimestamp(dateInput.value, hourInput.value, minuteInput.value);
     }
 
     function updateBookingTimes() {
-        const startDate = document.getElementById('booking_start_date').value;
-        const endDate = document.getElementById('booking_end_date').value;
-        const startHour = document.getElementById('start_hour').value;
-        const startMinute = document.getElementById('start_minute').value;
-        const endHour = document.getElementById('end_hour').value;
-        const endMinute = document.getElementById('end_minute').value;
-
-        document.getElementById('start_time').value =
-            startDate && startHour !== '' && startMinute !== ''
-                ? `${startDate}T${pad(startHour)}:${pad(startMinute)}`
+        startTimeInput.value =
+            startDateInput.value && startHourInput.value !== '' && startMinuteInput.value !== ''
+                ? `${startDateInput.value}T${pad(startHourInput.value)}:${pad(startMinuteInput.value)}`
                 : '';
-        document.getElementById('end_time').value =
-            endDate && endHour !== '' && endMinute !== ''
-                ? `${endDate}T${pad(endHour)}:${pad(endMinute)}`
+        endTimeInput.value =
+            endDateInput.value && endHourInput.value !== '' && endMinuteInput.value !== ''
+                ? `${endDateInput.value}T${pad(endHourInput.value)}:${pad(endMinuteInput.value)}`
                 : '';
     }
 
-    function updatePriceEstimate() {
-        const startTimestamp = getMadridTimestamp(
-            document.getElementById('booking_start_date').value,
-            document.getElementById('start_hour').value,
-            document.getElementById('start_minute').value
-        );
-        const endTimestamp = getMadridTimestamp(
-            document.getElementById('booking_end_date').value,
-            document.getElementById('end_hour').value,
-            document.getElementById('end_minute').value
-        );
-        const durationElement = document.getElementById('booking-duration');
-        const durationUnitElement = document.getElementById('booking-duration-unit');
-        const totalElement = document.getElementById('booking-total');
+    function clearRangeError() {
+        startDateInput.setCustomValidity('');
+        endDateInput.setCustomValidity('');
+        startDateInput.removeAttribute('aria-invalid');
+        endDateInput.removeAttribute('aria-invalid');
+        validationMessage.hidden = true;
+        validationMessage.textContent = '';
+    }
+
+    function validateBookingForm() {
+        clearRangeError();
+
+        if (requiredInputs.some((input) => input.value === '')) {
+            return null;
+        }
+
+        if (requiredInputs.some((input) => !input.validity.valid)) {
+            return 'invalid';
+        }
+
+        const startTimestamp = getBookingTimestamp(startDateInput, startHourInput, startMinuteInput);
+        const endTimestamp = getBookingTimestamp(endDateInput, endHourInput, endMinuteInput);
+        const error = validateBookingRange(startTimestamp, endTimestamp);
+
+        if (!error) {
+            return null;
+        }
+
+        const errorInput = error === 'past' ? startDateInput : endDateInput;
+        const message = error === 'past'
+            ? bookingForm.dataset.validationPast
+            : error === 'order'
+                ? bookingForm.dataset.validationOrder
+                : bookingForm.dataset.validationInvalid;
+
+        errorInput.setCustomValidity(message);
+        errorInput.setAttribute('aria-invalid', 'true');
+        validationMessage.textContent = message;
+        validationMessage.hidden = false;
+
+        return error;
+    }
+
+    function updatePriceEstimate(validationError) {
+        const startTimestamp = getBookingTimestamp(startDateInput, startHourInput, startMinuteInput);
+        const endTimestamp = getBookingTimestamp(endDateInput, endHourInput, endMinuteInput);
 
         if (
+            validationError ||
             !Number.isFinite(startTimestamp) ||
             !Number.isFinite(endTimestamp) ||
             endTimestamp <= startTimestamp
@@ -147,21 +118,32 @@ if (bookingForm) {
 
     function updateBookingForm() {
         updateBookingTimes();
-        updatePriceEstimate();
+        const validationError = validateBookingForm();
+
+        updatePriceEstimate(validationError);
+
+        return validationError;
     }
 
-    bookingForm.querySelectorAll('[required]').forEach((input) => {
+    requiredInputs.forEach((input) => {
         input.addEventListener('invalid', () => {
-            input.setCustomValidity(
-                input.validity.valueMissing
-                    ? bookingForm.dataset.validationRequired
-                    : bookingForm.dataset.validationInvalid
-            );
+            if (!input.validity.customError) {
+                input.setCustomValidity(
+                    input.validity.valueMissing
+                        ? bookingForm.dataset.validationRequired
+                        : bookingForm.dataset.validationInvalid
+                );
+            }
         });
         input.addEventListener('input', () => input.setCustomValidity(''));
     });
 
-    bookingForm.addEventListener('submit', updateBookingForm);
     bookingForm.addEventListener('input', updateBookingForm);
+    bookingForm.addEventListener('submit', (event) => {
+        if (updateBookingForm() || requiredInputs.some((input) => !input.validity.valid)) {
+            event.preventDefault();
+            bookingForm.reportValidity();
+        }
+    });
     updateBookingForm();
 }
