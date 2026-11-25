@@ -3,7 +3,15 @@ const moonIcon = document.getElementById('theme-icon-moon');
 const sunIcon = document.getElementById('theme-icon-sun');
 
 if(localStorage.getItem('theme') === null) {
-    localStorage.setItem('theme', 'light');
+    const lightTheme = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+    if(lightTheme) {
+        document.documentElement.className = "light";
+        localStorage.setItem('theme', 'light');
+    }else{
+        document.documentElement.className = "dark";
+        localStorage.setItem('theme', 'dark');
+    }
 }else{
     if(localStorage.getItem('theme') === 'dark') {
         document.documentElement.className = ""
