@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
+    background-color: var(--md-sys-color-surface-container);
+    border: 1px solid var(--md-sys-color-outline);
     border-radius: 12px;
     overflow: hidden;
     text-decoration: none;
@@ -14,13 +14,12 @@
 
 .bookings__card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 6px 16px var(--md-sys-color-shadow);
 }
 
-/* Columna izquierda: Imagen */
 .bookings__card__image {
     flex: 0 0 240px;
-    background-color: #f3f4f6;
+    background-color: var(--md-sys-color-surface);
 }
 
 .bookings__card__img {
@@ -30,7 +29,6 @@
     display: block;
 }
 
-/* Columna derecha: Datos */
 .bookings__card__details {
     flex: 1;
     display: flex;
@@ -38,6 +36,7 @@
     justify-content: space-between;
     padding: 20px 24px;
     gap: 12px;
+    color: var(--md-sys-color-on-surface);
 }
 
 .bookings__card__header {
@@ -55,8 +54,8 @@
 
 .bookings__card__id {
     font-size: 0.85rem;
-    color: #6b7280;
-    background-color: #f3f4f6;
+    color: var(--md-sys-color-on-surface-variant);
+    background-color: var(--md-sys-color-surface-variant);
     padding: 4px 10px;
     border-radius: 999px;
 }
@@ -70,7 +69,7 @@
 .bookings__card__date {
     margin: 0;
     font-size: 0.95rem;
-    color: #374151;
+    color: var(--md-sys-color-on-surface-variant);
 }
 
 .bookings__card__footer {
