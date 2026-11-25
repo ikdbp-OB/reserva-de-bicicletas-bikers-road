@@ -116,11 +116,23 @@ svg:hover{
     transition: transform 0.1s ease;
 }
 
+#close__menu__icon{
+    display: none;
+}
+
+#menu__icon{
+    display: block;
+}
+
 /*PC*/
 @media (min-width: 768px) {
     .header__pages{
         display: flex;
         gap: 20px;
+    }
+
+    #menu__icon{
+        display: none;
     }
 
     .header__pages a:hover{
