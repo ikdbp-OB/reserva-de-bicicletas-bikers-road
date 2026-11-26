@@ -1,4 +1,8 @@
-<x-guest-layout>
+@extends('layouts.app')
+
+@section('title', 'Confirm Password')
+
+@section('content')
     <div class="">
         {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
     </div>
@@ -24,4 +28,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+@endsection

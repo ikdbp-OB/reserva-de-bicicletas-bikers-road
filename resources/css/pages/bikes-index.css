@@ -1,0 +1,180 @@
+.bikes__container__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    gap: 40px;
+    color: var(--md-sys-color-on-background);
+}
+
+.bikes__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    flex: 1;
+}
+
+.bikes__results {
+    flex: 1;
+    min-width: 0;
+}
+
+.bikes__results-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--md-sys-color-on-background);
+}
+
+.bikes__results-controls select,
+.bikes__results-controls button {
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--md-sys-color-on-background);
+    background: var(--md-sys-color-surface);
+    border: 1px solid var(--md-sys-color-outline);
+    cursor: pointer;
+}
+
+.bikes__results-count {
+    margin-bottom: 1rem;
+    color: var(--md-sys-color-on-background);
+}
+
+.bikes__container [hidden] {
+    display: none;
+}
+
+#bikes-empty-message,
+#bikes-filtered-empty-message {
+    grid-column: 1 / -1;
+    color: var(--md-sys-color-on-background);
+}
+
+.bikes__filters {
+    width: 20vw;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.bikes__filters h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--md-sys-color-on-background);
+    margin: 0 0 0.5rem 0;
+}
+
+.filter-group {
+    width: 100%;
+}
+
+.bikes__filters .filter-item {
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-left: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: var(--md-sys-color-on-background);
+    cursor: pointer;
+    user-select: none;
+}
+
+.bikes__filters .filter-item::-webkit-details-marker {
+    display: none;
+}
+
+.bikes__filters .filter-item svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.25s ease;
+}
+
+.filter-group[open] .filter-item svg {
+    transform: rotate(180deg);
+}
+
+.filter-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    padding-left: 0.75rem;
+    width: 85%;
+}
+
+.filter-content label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--md-sys-color-on-background);
+}
+
+.filter-content input[type="text"],
+.filter-content input[type="number"],
+.filter-content select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: #000000;
+    background-color: #d9d9d9;
+    border: 1px solid #000000;
+    border-radius: 0px;
+    outline: none;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+}
+
+.filter-content input[type="text"]:focus,
+.filter-content input[type="number"]:focus,
+.filter-content select:focus {
+    background-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .bikes__container__wrapper {
+        flex-direction: column;
+        padding: 24px;
+    }
+
+    .bikes__filters,
+    .bikes__results {
+        width: 100%;
+    }
+}
+
+.filter-content label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.6rem 0.8rem;
+    color: #000000;
+    background-color: #d9d9d9;
+    border: 1px solid #000000;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.filter-content label:has(input[type="checkbox"]:checked) {
+    background-color: #ffffff;
+    font-weight: 600;
+}
+
+.filter-content input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: #000000;
+    cursor: pointer;
+    margin: 0;
+}

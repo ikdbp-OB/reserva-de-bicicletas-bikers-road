@@ -11,9 +11,14 @@ class Bike extends Model
 
     protected $fillable = [
         'serial_number',
+        'brand',
         'model',
         'price_per_hour',
         'status',
+        'stock',
+        'colour',
+        'img_route',
+        'size',
     ];
 
     function bookings()

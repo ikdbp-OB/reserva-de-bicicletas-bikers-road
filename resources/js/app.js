@@ -1,7 +1,6 @@
-
-
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
+import "./switch-theme.js";
+import "./header-menu.js";
+import "./bike-show.js";
+import "./bookings-create.js";
+import "./filter-bikes.js";
+import "./filter-bookings.js";

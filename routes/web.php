@@ -11,8 +11,11 @@ use Illuminate\Support\Facades\Route;
 |---------------------------------------------------------------------
 */
 
-// Página principal o catálogo público de bicicletas
-Route::get('/', [BikeController::class, 'index'])->name('bikes.index');
+Route::get('/', function(){
+    return view('landing-page');
+})->name('home');
+
+Route::get('/bikes', [BikeController::class, 'index'])->name('bikes.index');
 
 // Ver los detalles de una bicicleta específica
 Route::get('/bikes/{bike}', [BikeController::class, 'show'])->name('bikes.show');
@@ -45,6 +48,13 @@ Route::middleware(['auth'])->group(function () {
 
     
 });
+
+Route::get('/idioma/{locale}', function (string $locale) {
+    if (in_array($locale, ['es', 'en'])) {
+        session(['locale' => $locale]);
+    }
+    return back();
+})->name('cambiar.idioma');
 
 // Rutas de autenticación por defecto (Laravel Breeze / Jetstream / Fortify)
 require __DIR__.'/auth.php';

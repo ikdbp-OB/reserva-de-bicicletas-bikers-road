@@ -1,0 +1,48 @@
+.card-bikes {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    padding: 20px;
+    margin: 10px;
+    color: var(--md-sys-color-on-surface);
+}
+
+.card-img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.card-bikes__image {
+    background-color: var(--md-sys-color-surface-container);
+}
+.card-bikes__colour-container{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.card-bikes__colour-preview{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid var(--md-sys-color-outline);
+}
+
+.card-bikes__colour-text{
+    text-transform: capitalize;
+}
+
+.card-bikes__details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    gap: 5px;
+}
+
+.card-bikes__model{
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: capitalize;
+}
