@@ -5,7 +5,7 @@
 @section('content')
     <div class="register-container">
         <div class="register-header">
-            <h1>{{ __('Register') }}</h1>
+            <h1>{{ __('pid_register') }}</h1>
         </div>
 
         <form method="POST" action="{{ route('register') }}" class="register-form">
@@ -13,21 +13,21 @@
 
             <!-- Name -->
             <div class="register-group">
-                <x-input-label for="name" :value="__('Name')" />
+                <x-input-label for="name" :value="__('pid_name')" />
                 <x-text-input id="name" class="register-input" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('name')" class="register-error" />
             </div>
 
             <!-- Email Address -->
             <div class="register-group">
-                <x-input-label for="email" :value="__('Email')" />
+                <x-input-label for="email" :value="__('pid_email')" />
                 <x-text-input id="email" class="register-input" type="email" name="email" :value="old('email')" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="register-error" />
             </div>
 
             <!-- Password -->
             <div class="register-group">
-                <x-input-label for="password" :value="__('Password')" />
+                <x-input-label for="password" :value="__('pid_password')" />
 
                 <x-text-input id="password" class="register-input"
                                 type="password"
@@ -39,7 +39,7 @@
 
             <!-- Confirm Password -->
             <div class="register-group">
-                <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-input-label for="password_confirmation" :value="__('pid_confirm_password')" />
 
                 <x-text-input id="password_confirmation" class="register-input"
                                 type="password"
@@ -50,13 +50,13 @@
 
             <div class="register-links">
                 <a class="register-link" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                    {{ __('pid_already_have_account') }}
                 </a>
             </div>
 
             <div class="register-actions">
                 <x-primary-button class="register-button">
-                    {{ __('Register') }}
+                    {{ __('pid_register') }}
                 </x-primary-button>
             </div>
         </form>

@@ -90,5 +90,14 @@
   "pid_card_holder": "Titular de la tarjeta",
   "pid_confirm_booking": "Confirmar reserva",
   "pid_payment_method": "Método de pago",
-  "pid_name_placeholder": "Nombre Apellido..."
+  "pid_name_placeholder": "Nombre Apellido...",
+  "pid_password": "Contraseña",
+  "pid_confirm_password": "Confirmar contraseña",
+  "pid_name": "Nombre",
+  "pid_register": "Registrarse",
+  "pid_login": "Iniciar sesión",
+  "pid_already_have_account": "¿Ya tienes una cuenta?",
+  "pid_email": "Correo electrónico",
+  "pid_remember_me": "Recuérdame",
+  "pid_forgot_password": "¿Olvidaste tu contraseña?"
 }

@@ -6,7 +6,7 @@
 
     <div class="login-container">
         <div class="login-header">
-            <h1>{{ __('Log In') }}</h1>
+            <h1>{{ __('pid_login') }}</h1>
         </div>
 
         <!-- Session Status -->
@@ -17,14 +17,14 @@
 
             <!-- Email Address -->
             <div class="login-group">
-                <x-input-label for="email" :value="__('Email')" />
+                <x-input-label for="email" :value="__('pid_email')" />
                 <x-text-input id="email" class="login-input" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="login-error" />
             </div>
 
             <!-- Password -->
             <div class="login-group">
-                <x-input-label for="password" :value="__('Password')" />
+                <x-input-label for="password" :value="__('pid_password')" />
 
                 <x-text-input id="password" class="login-input"
                                 type="password"
@@ -38,20 +38,20 @@
             <div class="login-remember">
                 <label for="remember_me" class="">
                     <input id="remember_me" type="checkbox" class="" name="remember">
-                    <span class="">{{ __('Remember me') }}</span>
+                    <span class="">{{ __('pid_remember_me') }}</span>
                 </label>
             </div>
 
             <div class="login-links">
                 @if (Route::has('password.request'))
                     <a class="login-link" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        {{ __('pid_forgot_password') }}
                     </a>
                 @endif
 
                 @if (Route::has('register'))
                     <a class="login-link" href="{{ route('register') }}">
-                        {{ __('Register') }}
+                        {{ __('pid_register') }}
                     </a>
                 @endif
             </div>
