@@ -90,5 +90,14 @@
   "pid_card_holder": "Card holder",
   "pid_confirm_booking": "Confirm booking",
   "pid_payment_method": "Payment method",
-  "pid_name_placeholder": "Name Surname..."
+  "pid_name_placeholder": "Name Surname...",
+  "pid_password": "Password",
+  "pid_confirm_password": "Confirm password",
+  "pid_name": "Name",
+  "pid_register": "Register",
+  "pid_login": "Log in",
+  "pid_already_have_account": "Already have an account?",
+  "pid_email": "Email",
+  "pid_remember_me": "Remember me",
+  "pid_forgot_password": "Forgot your password?"
 }
